@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block dashboard %}
+
+<div class="container">
+    <br><br>
+    <hr style="background-color: white;">
+
+    <div>
+        {% for work in works %}
+        <div class="card" style="width: 100%; margin-right: 10px; margin-bottom: 10px;">
+            <div class="card-body">
+                    <label>link title:</label>
+                    <p>{{work.title}}</p>
+                    <label>link:</label>
+                    <a href="{{work.long_url}}">{{work.long_url}}</a><br>
+                    <label>short link:</label>
+                    <a href="http://127.0.0.1:8000/{{work.short_hash}}/">http://127.0.0.1:8000/{{work.short_hash}}</a><br>
+                    <label>clicks</label>
+                <label>{{work.no_clicks}}</label>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <form action="/create_short_url/" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <label>enter title</label>
+                <input type="textarea" name="title">
+            </div>
+            <div class="col-md-6">
+                <label>enter url</label>
+                <input type="textarea" name="long_url">
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+{% endblock %}
